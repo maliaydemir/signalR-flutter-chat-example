@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'Models/Message.dart';
-import 'SignalRHelper.dart';
+
+import 'Models/message.dart';
+import 'signal_r_helper.dart';
 
 class ChatScreen extends StatefulWidget {
-  final name;
+  final String name;
 
-  const ChatScreen({Key key, this.name}) : super(key: key);
+  const ChatScreen({Key? key, required this.name}) : super(key: key);
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -14,7 +15,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   var scrollController = ScrollController();
   var txtController = TextEditingController();
-  SignalRHelper signalR = new SignalRHelper();
+  SignalRHelper signalR = SignalRHelper();
 
   receiveMessageHandler(args) {
     signalR.messageList.add(Message(
@@ -27,7 +28,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat Screen'),
+        title: const Text('Chat Screen'),
       ),
       body: Column(
         children: [
@@ -50,7 +51,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 );
               },
               separatorBuilder: (_, i) {
-                return Divider(
+                return const Divider(
                   thickness: 2,
                 );
               },
@@ -64,12 +65,13 @@ class _ChatScreenState extends State<ChatScreen> {
                 decoration: InputDecoration(
                   hintText: 'Send Message',
                   suffixIcon: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.send,
                       color: Colors.lightBlue,
                     ),
-                    onPressed: () {
-                      signalR..sendMessage(widget.name, txtController.text);
+                    onPressed: () async {
+                      await signalR.restartIfNeedIt();
+                      signalR.sendMessage(widget.name, txtController.text);
                       txtController.clear();
                       scrollController.jumpTo(
                           scrollController.position.maxScrollExtent + 75);
@@ -86,6 +88,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
+    super.initState();
     signalR.connect(receiveMessageHandler);
   }
 

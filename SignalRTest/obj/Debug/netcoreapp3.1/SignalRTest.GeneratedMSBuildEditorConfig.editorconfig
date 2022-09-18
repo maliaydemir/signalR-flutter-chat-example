@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = SignalRTest
+build_property.ProjectDir = C:\Users\arsar\FlutterProject\signalR-flutter-chat-example\SignalRTest\
