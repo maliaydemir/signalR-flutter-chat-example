@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:signalr_test/login_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:signalr_test/LoginScreen.dart';
+import 'package:signalr_test/SignalRHelper.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    MyApp(),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
