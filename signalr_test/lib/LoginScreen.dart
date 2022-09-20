@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:signalr_test/chat_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:signalr_test/ChatScreen.dart';
 
 class LoginScreen extends StatelessWidget {
-  final nameController = TextEditingController();
-
-  LoginScreen({Key? key}) : super(key: key);
+  var nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login Page'),
+        title: Text('Login Page'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: TextField(
               controller: nameController,
-              decoration: const InputDecoration(hintText: 'Name'),
+              decoration: InputDecoration(hintText: 'Name'),
             ),
           ),
           TextButton(
@@ -32,10 +32,7 @@ class LoginScreen extends StatelessWidget {
                               ChatScreen(name: nameController.text)));
                 }
               },
-              child: const Text(
-                'Login',
-                style: TextStyle(fontSize: 24),
-              ))
+              child: Text('Login',style: TextStyle(fontSize: 24),))
         ],
       ),
     );
